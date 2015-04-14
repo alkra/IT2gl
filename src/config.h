@@ -13,6 +13,8 @@
 #ifndef CONFIG_H
 #define CONFIG_H
 
+#include "alban.h"
+
 #define NOM_APPLICATION "Casey Jr."
 
 struct Config_params {

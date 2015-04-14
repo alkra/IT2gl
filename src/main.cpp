@@ -10,7 +10,6 @@
  * 15 mai 2015
  */
 
-#include "alban.h"
 #include "config.h"
 #include "dessin.h"
 

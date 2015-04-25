@@ -15,9 +15,41 @@
 
 #include "alban.h"
 
+#include "../_api/src/CPoint3f.h"
+
+struct Camera {
+    CPoint3f oeil;//, centre, verticale; -> non implémenté
+};
+
 #define NOM_APPLICATION "Casey Jr."
+enum Projection { ORTHO };
 
 struct Config_params {
+    /* INITIALISATION */
+    int init_largeur_fenetre;
+    int init_hauteur_fenetre;
+    char* init_titre_fenetre;
+    Projection init_projection;
+    float init_camera_oeil_x;
+    float init_camera_oeil_y;
+    float init_camera_oeil_z;
+    /*float init_camera_centre_x;
+    float init_camera_centre_y;
+    float init_camera_centre_z;
+    float init_camera_verticale_x;
+    float init_camera_verticale_y;
+    float init_camera_verticale_z;*/// non implémenté
 };
+
+#define CAMERA_INIT(ox, oy, oz, cx, cy, cz, ux, uy, uz) \
+    camera->oeil.X = ox;\
+    camera->oeil.Y = oy;\
+    camera->oeil.Z = oz;\
+    /*camera->centre.X = cx;\
+    camera->centre.Y = cy;\
+    camera->centre.Z = cz;\
+    camera->verticale.X = ux;\
+    camera->verticale.Y = uy;\
+    camera->verticale.Z = uz; // au moins pour les tests*/// non implémenté
 
 #endif // CONFIG_H

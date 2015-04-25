@@ -30,7 +30,8 @@ HEADERS += \
     _api/src/CSommet.h \
     src/alban.h \
     src/config.h \
-    src/dessin.h
+    src/dessin.h \
+    src/tests.h
 
 LIBS += -lGL \
     -lGLU \

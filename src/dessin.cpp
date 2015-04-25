@@ -18,6 +18,9 @@ GLvoid dessiner_graphe(const CGraphe &graphe) {
     std::vector<CPointAnnexe> pts_annexes = graphe.list_point_annexe;
 
     CSommet *sommet_ini = NULL, *sommet_fin = NULL;
+
+    glColor3ub(255, 255, 255);
+    glLineWidth(6);
     for(int i = 0 ; i < graphe.nb_arc ; i++) {
         sommet_ini = &sommets[arcs[i].id_sommet_ini];
         sommet_fin = &sommets[arcs[i].id_sommet_fin];
@@ -25,10 +28,10 @@ GLvoid dessiner_graphe(const CGraphe &graphe) {
         glBegin(GL_LINE_STRIP);
 
         // point de départ
-        glVertex3f(sommet_ini->X, sommet_ini->Z, -sommet_ini->Y);
+        glVertex3f(sommet_ini->X, sommet_ini->Y, sommet_ini->Z);
 
         // point d'arrivée
-        glVertex3f(sommet_fin->X, sommet_fin->Z, -sommet_fin->Y);
+        glVertex3f(sommet_fin->X, sommet_fin->Y, sommet_fin->Z);
 
         glEnd();
     }

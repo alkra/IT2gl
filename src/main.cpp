@@ -13,6 +13,8 @@
 #include "config.h"
 #include "dessin.h"
 
+#include "tests.h" // le temps du débogage
+
 #include "../_api/src/CGraphe.h"
 #include "../_api/src/CSommet.h"
 
@@ -66,53 +68,91 @@ CGraphe initialiser_graphe(ostream &out) {
 }
 
 GLvoid initialiser_gl() {
+    /* DÉFINITION DE LA FENÊTRE */
+
     // taille de l'écran
     GLint larg_ecran = glutGet(GLUT_SCREEN_WIDTH),
             haut_ecran = glutGet(GLUT_SCREEN_HEIGHT);
 
-    // fenêtre
+    // taille de la fenêtre
     glutInitWindowSize(larg_ecran, haut_ecran);
     glutCreateWindow(NOM_APPLICATION);
     glutInitDisplayMode(GLUT_RGBA | GLUT_DOUBLE);
 
     // couleur d'effacement de la fenêtre
-    glClearColor(1, 1, 1, 1);
+    glClearColor(0, 0, 0, 1);
 }
 
-//#define TEAPOT
-
-GLvoid dessiner_scene() {
-    // zone d'activité (volume de vue)
+GLvoid initialiser_projection(GLint largeur_fenetre, GLint hauteur_fenetre) {
+    /* DÉFINITION DE LA VISION */
+    glMatrixMode(GL_PROJECTION);
     glLoadIdentity();
-#ifdef TEAPOT
-    glOrtho(-1000, 1000, -1000, 1000, -1000, 1000);
-#else
-    CPoint3f bas_gauche = graphe->getExtentLowerLeft(),
+
+    // définition de la zone de la fenêtre utilisée pour le dessin
+    glViewport(0, 0, largeur_fenetre, hauteur_fenetre);
+    // toute la fenêtre (comportement par défaut)
+
+    // définition du volume de vision
+    // voir aussi https://www.opengl.org/discussion_boards/showthread.php/132447-Relationship-between-glOrtho()-and-gluLookAt()
+    static CPoint3f bas_gauche = graphe->getExtentLowerLeft(),
             haut_droit = graphe->getExtentUpperRight();
     glOrtho(bas_gauche.X, haut_droit.X,
-            bas_gauche.Z, haut_droit.Z,
-            haut_droit.Y, bas_gauche.Y);
-#endif
+            bas_gauche.Y, haut_droit.Y,
+            -haut_droit.Z, bas_gauche.Z);
+}
 
+Camera *camera = NULL;
+
+GLvoid deplacer_oeil_x(GLfloat nouv) { camera->oeil.X += nouv; }
+GLvoid deplacer_oeil_y(GLfloat nouv) { camera->oeil.Y += nouv; }
+GLvoid deplacer_oeil_z(GLfloat nouv) { camera->oeil.Z += nouv; }
+/*GLvoid deplacer_centre_x(GLfloat nouv) { camera->centre.X += nouv; }
+GLvoid deplacer_centre_y(GLfloat nouv) { camera->centre.Y += nouv; }
+GLvoid deplacer_centre_z(GLfloat nouv) { camera->centre.Z += nouv; }
+GLvoid deplacer_verticale_x(GLfloat nouv) { camera->verticale.X += nouv; }
+GLvoid deplacer_verticale_y(GLfloat nouv) { camera->verticale.Y += nouv; }
+GLvoid deplacer_verticale_z(GLfloat nouv) { camera->verticale.Z += nouv; }*/// non implémenté
+
+GLvoid dessiner_scene() {
+    // effacement de la scène
     glClear(GL_COLOR_BUFFER_BIT);
-    glColor3f(0, 0, 0);
-#ifdef TEAPOT
-    glutSolidTeapot(600);
-#else
+
+    // réinitialisation de la matrice de vue
+    glMatrixMode(GL_MODELVIEW);
+    glLoadIdentity();
+
+    // définition de la vue
+    glTranslatef(-camera->oeil.X, -camera->oeil.Y, -camera->oeil.Z);
+
+    // dessin
+    TEST_DESSIN_REPERE
     dessiner_graphe(*graphe);
-#endif
+
     glFlush();
 }
 
 int main(int argc, char* argv[]) {
     // on lit le graphe
-    CGraphe le_graphe = initialiser_graphe(cout);
+    ostream nul(0);
+    CGraphe le_graphe = initialiser_graphe(nul);
     graphe = &le_graphe;
 
     // initialisation de GLUT
     glutInit(&argc, argv);
     initialiser_gl();
+
+    // définition de la projection
+    glutReshapeFunc(initialiser_projection);
+
+    // initialisation de la caméra
+    camera = new Camera;
+    CAMERA_INIT(0, 0, 0, 0, 0, 0, 0, 1, 0)
+
+    // dessin
     glutDisplayFunc(dessiner_scene);
+
     glutMainLoop();
+
+    delete camera;
     return EXIT_SUCCESS;
 }

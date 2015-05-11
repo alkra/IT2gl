@@ -14,6 +14,6 @@
 #define ALBAN_H
 
 #include <string>
-#define CHEMIN_DATA std::string("../../_api/data/")
+#define CHEMIN_DATA std::string("../_api/data/")
 
 #endif // ALBAN_H

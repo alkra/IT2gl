@@ -14,7 +14,9 @@ SOURCES += \
     _api/src/CSegment.cpp \
     _api/src/CSommet.cpp \
     src/config.cpp \
-    src/dessin.cpp
+    src/dessin.cpp \
+    src/train.cpp \
+    src/wagon.cpp
 
 OTHER_FILES +=
 
@@ -31,7 +33,9 @@ HEADERS += \
     src/alban.h \
     src/config.h \
     src/dessin.h \
-    src/tests.h
+    src/tests.h \
+    src/train.h \
+    src/wagon.h
 
 LIBS += -lGL \
     -lGLU \

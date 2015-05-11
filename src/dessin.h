@@ -17,5 +17,6 @@
 #include "../_api/src/CGraphe.h"
 
 GLvoid dessiner_graphe(const CGraphe &graphe);
+GLvoid dessiner_trains(CGraphe &graphe);
 
 #endif // DESSIN_H

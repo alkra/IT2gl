@@ -11,6 +11,7 @@
  */
 
 #include "dessin.h"
+#include "train.h"
 
 GLvoid dessiner_graphe(const CGraphe &graphe) {
     std::vector<CArc> arcs = graphe.list_arc;
@@ -30,9 +31,27 @@ GLvoid dessiner_graphe(const CGraphe &graphe) {
         // point de départ
         glVertex3f(sommet_ini->X, sommet_ini->Y, sommet_ini->Z);
 
+        // points annexes
+        for(unsigned int j = 0 ; j < pts_annexes.size() ; j++) {
+            glVertex3f(pts_annexes[j].X, pts_annexes[j].Y, pts_annexes[j].Z);
+        }
+
         // point d'arrivée
         glVertex3f(sommet_fin->X, sommet_fin->Y, sommet_fin->Z);
 
         glEnd();
+    }
+}
+
+GLvoid dessiner_trains(CGraphe &graphe) {
+    static std::vector<Train> trains;
+
+    if(trains.empty()) {
+        trains = construire_trains(graphe);
+    }
+
+    for(unsigned int i =0; i < trains.size() ; i++)
+    {
+        trains[i].dessiner();
     }
 }

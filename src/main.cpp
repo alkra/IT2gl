@@ -96,9 +96,16 @@ GLvoid initialiser_projection(GLint largeur_fenetre, GLint hauteur_fenetre) {
     // voir aussi https://www.opengl.org/discussion_boards/showthread.php/132447-Relationship-between-glOrtho()-and-gluLookAt()
     static CPoint3f bas_gauche = graphe->getExtentLowerLeft(),
             haut_droit = graphe->getExtentUpperRight();
-    glOrtho(bas_gauche.X, haut_droit.X,
-            bas_gauche.Y, haut_droit.Y,
-            -haut_droit.Z, bas_gauche.Z);
+    static GLdouble ratio = largeur_fenetre/hauteur_fenetre;
+    if(ratio > 1) { // plus large que haut
+        glOrtho(bas_gauche.X, haut_droit.X,
+                bas_gauche.X*ratio, haut_droit.X*ratio,
+                haut_droit.Z, bas_gauche.Z);
+    } else {
+        glOrtho(bas_gauche.Y*ratio, haut_droit.Y*ratio,
+                bas_gauche.Y, haut_droit.Y,
+                -haut_droit.Z, bas_gauche.Z);
+    }
 }
 
 Camera *camera = NULL;
@@ -127,6 +134,7 @@ GLvoid dessiner_scene() {
     // dessin
     TEST_DESSIN_REPERE
     dessiner_graphe(*graphe);
+    dessiner_trains(*graphe);
 
     glFlush();
 }

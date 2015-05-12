@@ -14,6 +14,7 @@ public:
     Train(const Train &autre);
 
     void dessiner() const;
+    void avancer() const;
 
     CGraphe graphe;
     std::vector<Wagon> wagons;

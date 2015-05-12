@@ -43,9 +43,10 @@ GLvoid dessiner_graphe(const CGraphe &graphe) {
     }
 }
 
-GLvoid dessiner_trains(CGraphe &graphe) {
-    static std::vector<Train> trains;
 
+static std::vector<Train> trains;
+
+GLvoid dessiner_trains(CGraphe &graphe) {
     if(trains.empty()) {
         trains = construire_trains(graphe);
     }
@@ -53,5 +54,11 @@ GLvoid dessiner_trains(CGraphe &graphe) {
     for(unsigned int i =0; i < trains.size() ; i++)
     {
         trains[i].dessiner();
+    }
+}
+
+GLvoid deplacer_train(int v) {
+    for(unsigned int i=0; i < trains.size() ; i++) {
+        trains[i].avancer();
     }
 }

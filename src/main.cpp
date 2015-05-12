@@ -83,30 +83,6 @@ GLvoid initialiser_gl() {
     glClearColor(0, 0, 0, 1);
 }
 
-GLvoid initialiser_projection(GLint largeur_fenetre, GLint hauteur_fenetre) {
-    /* DÉFINITION DE LA VISION */
-    glMatrixMode(GL_PROJECTION);
-    glLoadIdentity();
-
-    // définition de la zone de la fenêtre utilisée pour le dessin
-    glViewport(0, 0, largeur_fenetre, hauteur_fenetre);
-    // toute la fenêtre (comportement par défaut)
-
-    // définition du volume de vision
-    // voir aussi https://www.opengl.org/discussion_boards/showthread.php/132447-Relationship-between-glOrtho()-and-gluLookAt()
-    static CPoint3f bas_gauche = graphe->getExtentLowerLeft(),
-            haut_droit = graphe->getExtentUpperRight();
-    static GLdouble ratio = largeur_fenetre/hauteur_fenetre;
-    if(ratio > 1) { // plus large que haut
-        glOrtho(bas_gauche.X, haut_droit.X,
-                bas_gauche.X*ratio, haut_droit.X*ratio,
-                haut_droit.Z, bas_gauche.Z);
-    } else {
-        glOrtho(bas_gauche.Y*ratio, haut_droit.Y*ratio,
-                bas_gauche.Y, haut_droit.Y,
-                -haut_droit.Z, bas_gauche.Z);
-    }
-}
 
 Camera *camera = NULL;
 
@@ -120,6 +96,39 @@ GLvoid deplacer_verticale_x(GLfloat nouv) { camera->verticale.X += nouv; }
 GLvoid deplacer_verticale_y(GLfloat nouv) { camera->verticale.Y += nouv; }
 GLvoid deplacer_verticale_z(GLfloat nouv) { camera->verticale.Z += nouv; }*/// non implémenté
 
+
+GLvoid initialiser_projection(GLint largeur_fenetre, GLint hauteur_fenetre) {
+    static const CPoint3f bas_gauche = graphe->getExtentLowerLeft(),
+            haut_droit = graphe->getExtentUpperRight();
+
+    /* DÉFINITION DE LA VISION */
+    glMatrixMode(GL_PROJECTION);
+    glLoadIdentity();
+
+    // définition de la zone de la fenêtre utilisée pour le dessin
+    glViewport(0, 0, largeur_fenetre, hauteur_fenetre);
+    // toute la fenêtre (comportement par défaut)
+
+    // définition du volume de vision
+    // voir aussi https://www.opengl.org/discussion_boards/showthread.php/132447-Relationship-between-glOrtho()-and-gluLookAt()
+    double ratio_graphe = (haut_droit.X - bas_gauche.X) / (haut_droit.Y - bas_gauche.Y);
+    GLdouble ratio = ((double) largeur_fenetre)/((double) hauteur_fenetre);
+    const double marge = 1;
+    if(ratio_graphe < ratio) {
+        glOrtho (bas_gauche.X, haut_droit.X*ratio,
+                 bas_gauche.Y, haut_droit.Y,
+                 10, -10);
+
+        camera->oeil.X = -(haut_droit.X - bas_gauche.X)/2;
+    } else {
+        glOrtho(bas_gauche.X, haut_droit.X,
+                bas_gauche.Y, haut_droit.Y/ratio,
+                haut_droit.Z, bas_gauche.Z);
+
+        camera->oeil.Y = -(haut_droit.Y - bas_gauche.Y)/2;
+    }
+}
+
 GLvoid dessiner_scene() {
     // effacement de la scène
     glClear(GL_COLOR_BUFFER_BIT);
@@ -127,12 +136,12 @@ GLvoid dessiner_scene() {
     // réinitialisation de la matrice de vue
     glMatrixMode(GL_MODELVIEW);
     glLoadIdentity();
+    TEST_DESSIN_REPERE
 
     // définition de la vue
     glTranslatef(-camera->oeil.X, -camera->oeil.Y, -camera->oeil.Z);
 
     // dessin
-    TEST_DESSIN_REPERE
     dessiner_graphe(*graphe);
     dessiner_trains(*graphe);
 
@@ -158,6 +167,9 @@ int main(int argc, char* argv[]) {
 
     // dessin
     glutDisplayFunc(dessiner_scene);
+
+    // avancer
+    glutTimerFunc(30, deplacer_train, 0);
 
     glutMainLoop();
 

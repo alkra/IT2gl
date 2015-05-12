@@ -18,5 +18,6 @@
 
 GLvoid dessiner_graphe(const CGraphe &graphe);
 GLvoid dessiner_trains(CGraphe &graphe);
+GLvoid deplacer_train(int v);
 
 #endif // DESSIN_H

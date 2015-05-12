@@ -19,15 +19,21 @@ void Train::dessiner() const {
     }
 }
 
+void Train::avancer() const {
+
+}
+
 std::vector<Train> construire_trains(CGraphe graphe) {
     std::vector<Train> trains;
 
-    CArc courant = graphe.list_arc[0];
+    CArc courant = graphe.list_arc[1];
     CPoint3f ini = graphe.list_sommet[courant.id_sommet_ini],
             fin = graphe.list_point_annexe[courant.list_point_annexe[0]];
-    Wagon wagon11(0, ini, fin);
+    Wagon wagon11(0, ini, fin, 64, 0, 0, 1.5),
+            wagon12(2.5, ini, fin, 128, 0, 0, 3);
     std::vector<Wagon> w;
     w.push_back(wagon11);
+    w.push_back(wagon12);
     Train train1(graphe, w, 0);
 
     trains.push_back(train1);

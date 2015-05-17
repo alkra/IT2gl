@@ -96,7 +96,7 @@
 	<GL/gl.h>
 	<vector>
 
-1431898455 source:c:\users\alban\it2\valilab\opengl\projet\src\main.cpp
+1431901961 source:c:\users\alban\it2\valilab\opengl\projet\src\main.cpp
 	"config.h"
 	"dessin.h"
 	"tests.h"
@@ -110,7 +110,7 @@
 	<GL/glu.h>
 	<GL/glut.h>
 
-1431901547 c:\users\alban\it2\valilab\opengl\projet\src\config.h
+1431903143 c:\users\alban\it2\valilab\opengl\projet\src\config.h
 	"_api/CPoint3f.h"
 	<string>
 

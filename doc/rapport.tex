@@ -82,7 +82,7 @@ Les gestionnaires de fenêtres (tels que le bureau Windows\footnote{\texttt{dwm.
 
 Nous n'avons guère reconnu l'utilité d'installer une bibliothèque graphique entière pour n'utiliser que ses capacités de gestion de fenêtre. De plus, nous avions déjà vu GLUT en cours. Notre choix s'est donc porté sur cette bibliothèque.
 
-Dans notre code, la gestion de la fenêtre est réaliser dans la fonction \texttt{GLvoid initialiser\_gl()} de \texttt{main.cpp}, qui porte mal son nom : en effet, on y initialise davantage GLUT que la partie propre à OpenGL.
+Dans notre code, la gestion de la fenêtre est réalisée dans la fonction \texttt{GLvoid initialiser\_gl()} de \texttt{main.cpp}, qui porte mal son nom : en effet, on y initialise davantage GLUT que la partie propre à OpenGL.
 
 \subsection{Le langage}
 
@@ -176,7 +176,7 @@ Un train occupe de la place dans l'espace, et en pratique on a souvent besoin d'
 \begin{itemize}
 \item le graphe. Une référence aurait été plus appropriée pour éviter la duplication de l'objet, mais nous avions des difficultés à l'initialiser (passer un paramètre obligatoire au constructeur par défaut de \texttt{Train}).
 \item la liste ordonnée des points et des arcs par lesquels passe le train, car les wagons se suivent. Voir \ref{avancerWagon}.
-\item la vitesse actuelle et la vitesse maximale du train (donc de tous les wagons), exprimée en unités de graphe par période de rafraîchissement de l'écran.\footnote{Donc calculée à la louche}
+\item la vitesse actuelle et la vitesse maximale du train (donc de tous les wagons), exprimées en unités de graphe par période de rafraîchissement de l'écran.\footnote{Donc calculées à la louche}
 \item deux attributs pour gérer les priorités aux carrefours, voir \ref{collisionsCarrefour}.
 \end{itemize}
 
@@ -337,7 +337,7 @@ Le comportement de cette fonction est totallement différent selon que le wagon 
 
 Pour la locomotive, changer de tronçon revient à rechercher dans tout le graphe le tronçon suivant celui sur lequel elle se trouve.
 
-Dans le cas d'un autre wagon, le tronçon suivant est simplement celui emprunté par le wagon précédent. Récupérer ce tronçon nécessite de stocker dans l'ordre la liste des tronçons empruntés successivement par le train.
+Dans le cas d'un autre wagon, le tronçon suivant est simplement celui emprunté par le wagon précédent. Récupérer ce tronçon nécessite de stocker dans l'ordre la liste des tronçons empruntés successivement par le train : \texttt{etendue}.
 
 \subsubsection[Choisir un tronçon]{Trouver le tronçon suivant pour la locomotive}
 \label{choisirTroncon}
@@ -346,7 +346,7 @@ Cette section est implémentée dans la fonction \texttt{choisir\_troncon}. Dans
 
 Deux cas particuliers peuvent néanmoins subvenir.
 
-\paragraph{La locomotive n'est pas sur un point annexe} mais sur un des sommets du graphe. Le tronçon suivant est donc le premier tronçon (terminé par le premier point annexe\footnote{Ou le sommet final si l'arc n'a pas de point annexe ; cette situation n'a d'ailleurs pas été prévue\dots}) d'un autre arc. Le choix de l'arc suivant se fait en parcourant la liste des arcs sortants de ce sommet, et en en choisissant un au hasard. En faisant cela, on considère implicitement que le graphe n'est pas orienté, ce qui est en désaccord avec le sujet mais facilite les calculs : deux trains ne peuvent pas se trouver nez-à-nez. On considère également que tout sommet a au moint un arc sortant (pas de puits), ce qui est, là encore, une hypothèse forte.
+\paragraph{La locomotive n'est pas sur un point annexe} mais sur un des sommets du graphe. Le tronçon suivant est donc le premier tronçon (terminé par le premier point annexe\footnote{Ou le sommet final si l'arc n'a pas de point annexe ; cette situation n'a d'ailleurs pas été prévue\dots}) d'un autre arc. Le choix de l'arc suivant se fait en parcourant la liste des arcs sortant de ce sommet, et en en choisissant un au hasard. En faisant cela, on considère implicitement que le graphe est orienté, ce qui est en désaccord avec le sujet mais facilite les calculs : deux trains ne peuvent pas se trouver nez-à-nez. On considère également que tout sommet a au moint un arc sortant (pas de puits), ce qui est, là encore, une hypothèse forte.
 
 \paragraph{La locomotive est sur le dernier point annexe,} donc le point suivant est le sommet final de l'arc. Il peut s'agir d'un carrefour, donc la prévention des collisions est indispensable. Voir à ce propos \ref{collisionsCarrefour}.
 
@@ -367,7 +367,7 @@ En plus d'un train engagé, il peut y avoir un ou plusieurs trains attendant leu
 
 On trie alors la liste des trains en attente de manière à ce que celui qui attend depuis le plus longtemps (priorité positive la plus faible) se trouve en tête de liste.
 
-On parcourt alors cette liste de trains en attente. On attribue un nouvel ordre de priorité aux trains. Si jamais un des trains se voit attribuer la priorité 0, cela signifie que le carrefour est libre et que c'est lui qui est en tête de la file d'attente. On le démarre alors en réglant sa vitesse à sa vitesse maximale. En principe, il n'y a aucun train entre lui et le carrefour, donc il n'est pas utile d'ajuster sa vitesse davantage. Tous les trains se voyant attribuer une priorité strictement positive se voient immobilisés.
+On parcourt alors cette liste de trains en attente. On attribue un nouvel ordre de priorité aux trains. Si jamais un des trains se voit attribuer la priorité 0, cela signifie que le carrefour est libre et que c'est lui qui est en tête de la file d'attente. On le démarre alors en réglant sa vitesse à sa vitesse maximale. En principe, il n'y a aucun train entre lui et le carrefour, donc il n'est pas utile d'ajuster sa vitesse davantage. Tous les trains se voyant attribuer une priorité strictement positive sont immobilisés.
 
 \subsubsection{Liées à la vitesse}
 \label{collisionsVitesse}
@@ -407,7 +407,7 @@ Notez dans tous les cas qu'OpenGL ne fonctionne qu'avec des cartes graphiques co
 
 Nous vous enjoignons à vous rendre sur \href{https://www.opengl.org/wiki/Getting_started}{www.opengl.org/wiki/Getting\_started}, qui fournit toutes les informations pour télécharger OpenGL.
 
-Vous devez également installer GLUT, par exemple distribué par \href{http://freeglut.sourceforge.net/docs/install.php}{freeglut}. Les instructions d'installation pour des systèmes autres que Unix/Linux semblent lacunaires.
+Vous devez également installer GLUT, par exemple distribué par \href{http://freeglut.sourceforge.net/docs/install.php}{freeglut}. Les instructions d'installation pour des systèmes autres que Unix ou Linux semblent lacunaires.
 
 Sous GNU/Linux, il vous suffit d'installer la version de développement de freeglut, sûrement enpaquetée par votre distribution sous un nom semblable à \texttt{freeglut3-dev}.
 

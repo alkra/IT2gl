@@ -14,10 +14,16 @@
 #define DESSIN_H
 
 #include <GL/gl.h>
-#include "../_api/src/CGraphe.h"
+#include "_api/CGraphe.h"
+#include "train.h"
 
-GLvoid dessiner_graphe(const CGraphe &graphe);
+GLvoid dessiner_graphe(CGraphe &graphe);
 GLvoid dessiner_trains(CGraphe &graphe);
-GLvoid deplacer_train(int v);
+GLvoid deplacer_train();
+
+
+double collision_verifier_vitesse(const Train *train);
+int collision_calcul_priorite(const CSommet &mathieu_sommet);
+void collision_liberer_vitesse(const std::vector<CArc> &entrants);
 
 #endif // DESSIN_H

@@ -5,37 +5,35 @@ CONFIG -= qt
 
 SOURCES += \
     src/main.cpp \
-    _api/src/CArc.cpp \
-    _api/src/CData2i.cpp \
-    _api/src/CDonneesGraphe.cpp \
-    _api/src/CGraphe.cpp \
-    _api/src/CPoint3f.cpp \
-    _api/src/CPointAnnexe.cpp \
-    _api/src/CSegment.cpp \
-    _api/src/CSommet.cpp \
-    src/config.cpp \
     src/dessin.cpp \
     src/train.cpp \
-    src/wagon.cpp
+    src/wagon.cpp \
+    src/_api/CArc.cpp \
+    src/_api/CData2i.cpp \
+    src/_api/CDonneesGraphe.cpp \
+    src/_api/CGraphe.cpp \
+    src/_api/CPoint3f.cpp \
+    src/_api/CPointAnnexe.cpp \
+    src/_api/CSegment.cpp \
+    src/_api/CSommet.cpp
 
 OTHER_FILES +=
 
 HEADERS += \
-    _api/src/CArc.h \
-    _api/src/CData2i.h \
-    _api/src/CDonneesGraphe.h \
-    _api/src/CGraphe.h \
-    _api/src/consts.h \
-    _api/src/CPoint3f.h \
-    _api/src/CPointAnnexe.h \
-    _api/src/CSegment.h \
-    _api/src/CSommet.h \
-    src/alban.h \
     src/config.h \
     src/dessin.h \
     src/tests.h \
     src/train.h \
-    src/wagon.h
+    src/wagon.h \
+    src/_api/CArc.h \
+    src/_api/CData2i.h \
+    src/_api/CDonneesGraphe.h \
+    src/_api/CGraphe.h \
+    src/_api/consts.h \
+    src/_api/CPoint3f.h \
+    src/_api/CPointAnnexe.h \
+    src/_api/CSegment.h \
+    src/_api/CSommet.h
 
 LIBS += -lGL \
     -lGLU \

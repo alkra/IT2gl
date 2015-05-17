@@ -13,9 +13,10 @@
 #ifndef CONFIG_H
 #define CONFIG_H
 
-#include "alban.h"
+#include "_api/CPoint3f.h"
 
-#include "../_api/src/CPoint3f.h"
+#include <string>
+#define CHEMIN_DATA std::string("../../data/")
 
 struct Camera {
     CPoint3f oeil;//, centre, verticale; -> non implémenté

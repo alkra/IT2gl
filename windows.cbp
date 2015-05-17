@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes" ?>
+<CodeBlocks_project_file>
+	<FileVersion major="1" minor="6" />
+	<Project>
+		<Option title="windows" />
+		<Option pch_mode="2" />
+		<Option compiler="gcc" />
+		<Build>
+			<Target title="">
+				<Option output="bin/x86_64-win32/Debug/windows" prefix_auto="1" extension_auto="1" />
+				<Option object_output="bin/x86_64-win32/Debug/" />
+				<Option type="1" />
+				<Option compiler="gcc" />
+				<Compiler>
+					<Add option="-g" />
+				</Compiler>
+			</Target>
+		</Build>
+		<Compiler>
+			<Add option="-Wall" />
+		</Compiler>
+		<Linker>
+			<Add library="C:\MinGW\lib\libopengl32.a" />
+			<Add library="C:\MinGW\lib\libglaux.a" />
+			<Add library="C:\MinGW\lib\libglu32.a" />
+			<Add library="C:\MinGW\lib\libfreeglut.a" />
+			<Add library="C:\MinGW\lib\libfreeglut_static.a" />
+		</Linker>
+		<Unit filename="src/_api/CArc.cpp" />
+		<Unit filename="src/_api/CArc.h" />
+		<Unit filename="src/_api/CData2i.cpp" />
+		<Unit filename="src/_api/CData2i.h" />
+		<Unit filename="src/_api/CDonneesGraphe.cpp" />
+		<Unit filename="src/_api/CDonneesGraphe.h" />
+		<Unit filename="src/_api/CGraphe.cpp" />
+		<Unit filename="src/_api/CGraphe.h" />
+		<Unit filename="src/_api/CPoint3f.cpp" />
+		<Unit filename="src/_api/CPoint3f.h" />
+		<Unit filename="src/_api/CPointAnnexe.cpp" />
+		<Unit filename="src/_api/CPointAnnexe.h" />
+		<Unit filename="src/_api/CSegment.cpp" />
+		<Unit filename="src/_api/CSegment.h" />
+		<Unit filename="src/_api/CSommet.cpp" />
+		<Unit filename="src/_api/CSommet.h" />
+		<Unit filename="src/_api/consts.h" />
+		<Unit filename="src/config.h" />
+		<Unit filename="src/dessin.cpp" />
+		<Unit filename="src/dessin.h" />
+		<Unit filename="src/main.cpp" />
+		<Unit filename="src/tests.h" />
+		<Unit filename="src/train.cpp" />
+		<Unit filename="src/train.h" />
+		<Unit filename="src/wagon.cpp" />
+		<Unit filename="src/wagon.h" />
+		<Extensions>
+			<code_completion />
+			<envvars />
+			<debugger />
+		</Extensions>
+	</Project>
+</CodeBlocks_project_file>

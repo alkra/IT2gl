@@ -16,7 +16,7 @@
 #include "_api/CPoint3f.h"
 
 #include <string>
-#define CHEMIN_DATA std::string("../../data/")
+#define CHEMIN_DATA std::string("C:\\Users\\Alban\\IT2\\VALILAB\\OpenGL\\projet\\data\\")
 
 struct Camera {
     CPoint3f oeil;//, centre, verticale; -> non implémenté

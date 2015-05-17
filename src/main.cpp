@@ -116,8 +116,12 @@ GLvoid dessiner_scene(int v) {
     glFlush();
 
     if(v >= 0) {
-        glutTimerFunc(v, dessiner_scene, v);
+        glutTimerFunc(30, dessiner_scene, 30);
     }
+}
+
+GLvoid dessiner_sceneV() {
+    //dessiner_scene(30);
 }
 
 GLvoid initialiser_projection(GLint largeur_fenetre, GLint hauteur_fenetre) {
@@ -179,6 +183,7 @@ int main(int argc, char* argv[]) {
     CAMERA_INIT(0, 0, 0, 0, 0, 0, 0, 1, 0)
 
     // dessin
+    glutDisplayFunc(dessiner_sceneV);
     glutTimerFunc(30, dessiner_scene, 30);
 
     glutMainLoop();

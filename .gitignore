@@ -1,0 +1,54 @@
+# C++ objects and libs
+
+*.slo
+*.lo
+*.o
+*.a
+*.la
+*.lai
+*.so
+*.dll
+*.dylib
+
+# Qt-es
+
+/.qmake.cache
+/.qmake.stash
+*.pro.user
+*.pro.user.*
+*.qbs.user
+*.qbs.user.*
+*.moc
+moc_*.cpp
+qrc_*.cpp
+ui_*.h
+Makefile*
+*build-*
+
+# QtCreator
+
+*.autosave
+
+#QtCtreator Qml
+*.qmlproject.user
+*.qmlproject.user.*
+
+# Code::Blocks
+*.depend
+*.layout
+
+# This project
+projet
+
+# Alban
+.directory
+*~
+_doc/
+_tutors/
+bin/
+cr2504.txt
+gl1105.tar.gz
+gl1205.tar.gz
+gl1404.tar.gz
+gl2504.tar.gz
+Kraus_Pensier_Schittek.tar.gz

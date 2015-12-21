@@ -61,7 +61,7 @@ Arborescence
 
 `src/`      : contient les sources ;
 
-̀src/_api/` : contient les classes fournies pour exploiter le graphe.
+`src/_api/` : contient les classes fournies pour exploiter le graphe.
 
 
 
@@ -75,6 +75,6 @@ pas à contacter les auteurs.
 Bon courage à tous !
 
 
-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
++-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+  
 © Alban Kraus, 16 décembre 2015
   alban.kraus@ensg.eu

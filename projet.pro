@@ -35,6 +35,12 @@ HEADERS += \
     src/_api/CSegment.h \
     src/_api/CSommet.h
 
-LIBS += -lGL \
-    -lGLU \
-    -lglut
+linux {
+    LIBS += -lGL \
+        -lGLU \
+        -lglut
+}
+
+windows {
+    LIBS += -lopengl32 -lglu32 -lfreeglut
+}
